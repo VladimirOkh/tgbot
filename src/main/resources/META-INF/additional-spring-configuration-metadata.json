@@ -1,0 +1,25 @@
+{
+  "groups": [
+    {
+      "name": "cbr.url",
+      "type": "ru.skillfactorydemo.tgbot.config.CustomProperties",
+      "sourceType": "ru.skillfactorydemo.tgbot.config.CustomProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "cbr.url",
+      "type": "java.lang.String",
+      "description": "The url to connect to.",
+      "sourceType": "ru.skillfactorydemo.tgbot.config.CustomProperties"
+    },
+    {
+      "name": "cbr.timeout-in-milli-seconds",
+      "type": "java.lang.Integer",
+      "description": "The time to wait for the connection.",
+      "sourceType": "ru.skillfactorydemo.tgbot.config.CustomProperties",
+      "defaultValue": 1000
+    }
+  ],
+  "hints": []
+}
