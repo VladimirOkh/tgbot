@@ -1,4 +1,4 @@
-package ru.skillfactorydemo;
+package ru.skillfactorydemo.tgbot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
