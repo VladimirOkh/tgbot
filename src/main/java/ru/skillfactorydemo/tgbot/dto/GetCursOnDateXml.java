@@ -1,4 +1,4 @@
-package ru.skillfactorydemo.tgbot.dt;
+package ru.skillfactorydemo.tgbot.dto;
 
 
 import lombok.Data;
