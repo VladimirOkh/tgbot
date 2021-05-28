@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Data //Генерируем геттеры и сеттеры
 public class GetCursOnDateXmlResponse {
 
-    @XmlElement(name = "GetCursOnDateXmlResponse",namespace = "http://web.cbr.ru/")
+    @XmlElement(name = "GetCursOnDateXMLResult",namespace = "http://web.cbr.ru/")
     private GetCursOnDateXmlResult getCursOnDateXmlResult;
 
 }
