@@ -13,7 +13,7 @@ import java.util.List;
 @Data //генерируем геттеры и сеттеры
 public class GetCursOnDateXmlResult {
 
-    @XmlElementWrapper(name = "ValuteData", namespace = "")
+    @XmlElementWrapper(name = "valuteData", namespace = "")
     @XmlElement(name = "ValuteCursOnDate", namespace = "")
     private List<ValuteCursOnDate> valuteData = new ArrayList<>();
 }

@@ -17,7 +17,7 @@ import java.util.List;
 public class CentralRussianBankService extends WebServiceTemplate{
 
     @Value("${cbr.url}")
-    private String cbrApiUrl;
+    private String cbrUrl;
 
     //метод для получения данных
     public List<ValuteCursOnDate> getCurrenciesFromCbr() throws DatatypeConfigurationException {
@@ -26,9 +26,9 @@ public class CentralRussianBankService extends WebServiceTemplate{
         cal.setTime(new Date());
 
         XMLGregorianCalendar xmlGregCal = DatatypeFactory.newInstance().newXMLGregorianCalendar(cal);
-        getCursOnDateXml.setOnDate(xmlGregCal);
+        getCursOnDateXml.setOn_Date(xmlGregCal);
 
-        GetCursOnDateXmlResponse response = (GetCursOnDateXmlResponse) marshalSendAndReceive(cbrApiUrl, getCursOnDateXml);
+        GetCursOnDateXmlResponse response = (GetCursOnDateXmlResponse)marshalSendAndReceive(cbrUrl, getCursOnDateXml);
 
         if (response == null) {
             throw new IllegalStateException("Could not get response from CBR Service");
