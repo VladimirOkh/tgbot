@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.ws.soap.saaj.SaajSoapMessageFactory;
-import ru.skillfactorydemo.tgbot.dto.GetCursOnDateXml;
+import ru.skillfactorydemo.tgbot.dto.GetCursOnDateXML;
 import ru.skillfactorydemo.tgbot.dto.GetCursOnDateXmlResponse;
 import ru.skillfactorydemo.tgbot.dto.GetCursOnDateXmlResult;
 import ru.skillfactorydemo.tgbot.dto.ValuteCursOnDate;
@@ -28,7 +28,7 @@ public class AppConfig {
         cbrService.setMessageFactory(newSoapMessageFactory);
 
         jaxb2Marshaller.setClassesToBeBound(
-                GetCursOnDateXml.class,
+                GetCursOnDateXML.class,
                 GetCursOnDateXmlResponse.class,
                 GetCursOnDateXmlResult.class,
                 ValuteCursOnDate.class);

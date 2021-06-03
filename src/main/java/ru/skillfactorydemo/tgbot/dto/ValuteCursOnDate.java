@@ -9,22 +9,22 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@Data
 @XmlRootElement(name = "ValuteCursOnDate")
+@Data
 public class ValuteCursOnDate {
 
-    @XmlElement(name = "Vname") //Название XML тэга
+    @XmlElement(name = "Vname")
     private String name;
 
-    @XmlElement(name = "Vnom") //Название XML тэга
+    @XmlElement(name = "Vnom")
     private int nominal;
 
-    @XmlElement(name = "Vcurs") //Название XML тэга
+    @XmlElement(name = "Vcurs")
     private double course;
 
-    @XmlElement(name = "Vcode") //Название XML тэга
+    @XmlElement(name = "Vcode")
     private String code;
 
-    @XmlElement(name = "VchCode") //Название XML тэга
+    @XmlElement(name = "VchCode")
     private String chCode;
 }

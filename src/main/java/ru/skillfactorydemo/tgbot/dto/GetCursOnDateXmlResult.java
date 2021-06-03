@@ -7,13 +7,12 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
-@XmlAccessorType(XmlAccessType.FIELD) //Указываем, как получить/передать значение в поля
-@XmlRootElement(name = "GetCursOnDateXmlResult") //Корневой элемент, то есть внутри этого элемента должны быть элементы, которые указаны как поля
-@Data //генерируем геттеры и сеттеры
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "GetCursOnDateXmlResult")
+@Data
 public class GetCursOnDateXmlResult {
 
-    @XmlElementWrapper(name = "valuteData", namespace = "")
+    @XmlElementWrapper(name = "ValuteData", namespace = "")
     @XmlElement(name = "ValuteCursOnDate", namespace = "")
     private List<ValuteCursOnDate> valuteData = new ArrayList<>();
 }
