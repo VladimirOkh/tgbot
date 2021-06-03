@@ -19,6 +19,12 @@
       "description": "The time to wait for the connection.",
       "sourceType": "ru.skillfactorydemo.tgbot.config.CustomProperties",
       "defaultValue": 1000
+    },
+    {
+      "name": "bot.name",
+      "type": "java.lang.String",
+      "description": "Bot name.",
+      "sourceType": "ru.skillfactorydemo.tgbot.service.CentralRussianBankService"
     }
   ],
   "hints": []
