@@ -12,8 +12,11 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.skillfactorydemo.tgbot.dto.ValuteCursOnDate;
+import ru.skillfactorydemo.tgbot.entity.ActiveChat;
+import ru.skillfactorydemo.tgbot.repository.ActiveChatRepository;
 
 import javax.annotation.PostConstruct;
+import java.util.Set;
 
 @Service //Данный класс является сервисом
 @Slf4j //Подключаем логирование из Lombok'a
@@ -22,6 +25,7 @@ public class BotService extends TelegramLongPollingBot {
 
 
     private final CentralRussianBankService centralRussianBankService;
+    private final ActiveChatRepository activeChatRepository;
 
     @Value("${bot.api.key}") //Сюда будет вставлено значение из application.properties, в котором будет указан api key, полученный от BotFather
     private String apiKey;
@@ -50,9 +54,14 @@ public class BotService extends TelegramLongPollingBot {
                     response.setText(StringUtils.defaultIfBlank(response.getText(), "") + valuteCursOnDate.getName() + " - " + valuteCursOnDate.getCourse() + "\n");
                 }
             }
-            //Теперь мы сообщаем, что пора бы и ответ отправлять
+
             execute(response);
-            //Ниже очень примитивная обработка исключений, чуть позже мы это поправим
+
+            if (activeChatRepository.findActiveChatByChatId(chatId).isEmpty()) {
+                ActiveChat activeChat = new ActiveChat();
+                activeChat.setChatId(chatId);
+                activeChatRepository.save(activeChat);
+            }
         } catch (TelegramApiException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -60,6 +69,19 @@ public class BotService extends TelegramLongPollingBot {
         }
     }
 
+
+    public void sendNotificationToAllActiveChats(String message, Set<Long> chatIds){
+        for (Long id :chatIds) {
+            SendMessage sendMessage = new SendMessage();
+            sendMessage.setChatId(String.valueOf(id));
+            sendMessage.setText(message);
+            try {
+                execute(sendMessage);
+            } catch (TelegramApiException e){
+                e.printStackTrace();
+            }
+        }
+    }
 
     //Данный метод будет вызван сразу после того, как данный бин будет создан - это обеспечено аннотацией Spring PostConstruct
     @PostConstruct
