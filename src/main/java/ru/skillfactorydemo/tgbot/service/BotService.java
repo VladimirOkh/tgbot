@@ -16,14 +16,18 @@ import ru.skillfactorydemo.tgbot.entity.ActiveChat;
 import ru.skillfactorydemo.tgbot.repository.ActiveChatRepository;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service //Данный класс является сервисом
 @Slf4j //Подключаем логирование из Lombok'a
 @RequiredArgsConstructor
 public class BotService extends TelegramLongPollingBot {
 
-
+    private Map<Long, List<String>> previousCommands = new ConcurrentHashMap<>();
     private final CentralRussianBankService centralRussianBankService;
     private final ActiveChatRepository activeChatRepository;
 
@@ -34,6 +38,21 @@ public class BotService extends TelegramLongPollingBot {
     private String name;
 
 
+
+    private void putPreviousCommand(Long chatId, String command) {
+        if (previousCommands.get(chatId) == null) {
+            List<String> commands = new ArrayList<>();
+            commands.add(command);
+            previousCommands.put(chatId, commands);
+        } else {
+            previousCommands.get(chatId).add(command);
+        }
+    }
+
+    private String getPreviousCommand(Long chatId) {
+        return previousCommands.get(chatId)
+                .get(previousCommands.get(chatId).size() - 1);
+    }
 
     @Override
     public void onUpdateReceived(Update update) {
