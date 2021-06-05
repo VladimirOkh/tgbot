@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.com/VladimirOkh/tgbot.svg?branch=master)](https://travis-ci.com/VladimirOkh/tgbot)
