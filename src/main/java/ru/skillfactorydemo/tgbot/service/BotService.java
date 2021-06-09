@@ -34,13 +34,15 @@ public class BotService extends TelegramLongPollingBot {
     private final FinanceService financeService;
 
     private static final String CURRENT_RATES = "/currentrates";
+    private static final String GET_INCOME_HISTORY = "/getincomehistory";
+    private static final String GET_SPEND_HISTORY = "/getspendhistory";
     private static final String ADD_INCOME = "/addincome";
     private static final String ADD_SPEND = "/addspend";
 
-    @Value("${bot.api.key}") //Сюда будет вставлено значение из application.properties, в котором будет указан api key, полученный от BotFather
+    @Value("${bot.api.key}")
     private String apiKey;
 
-    @Value("${bot.name}") //Как будут звать нашего бота
+    @Value("${bot.name}")
     private String name;
 
 
@@ -73,13 +75,24 @@ public class BotService extends TelegramLongPollingBot {
             response.setChatId(String.valueOf(chatId));
             if (CURRENT_RATES.equalsIgnoreCase(message.getText())) {
                 for (ValuteCursOnDate valuteCursOnDate : centralRussianBankService.getCurrenciesFromCbr()) {
-                    response.setText(StringUtils.defaultIfBlank(response.getText(), "") + valuteCursOnDate.getName() + " - " + valuteCursOnDate.getCourse() + "\n");
+                    response.setText(StringUtils.defaultIfBlank(response.getText(), "") +
+                            valuteCursOnDate.getName() + " - " + valuteCursOnDate.getCourse() + "\n");
                 }
-            } else if (ADD_INCOME.equalsIgnoreCase(message.getText())) {
+            }else if (GET_INCOME_HISTORY.equalsIgnoreCase(message.getText())){
+                response.setText("Подготавливаем вашу историю \n" + financeService.getOperations(message.getText(), message.getChatId()));
+            }
+            else if (GET_SPEND_HISTORY.equalsIgnoreCase(message.getText())){
+                response.setText("Подготавливаем вашу историю \n" + financeService.getOperations(message.getText(), message.getChatId()));
+            }
+            else if (ADD_INCOME.equalsIgnoreCase(message.getText()))
+            {
                 response.setText("Отправьте мне сумму полученного дохода");
-            } else if (ADD_SPEND.equalsIgnoreCase(message.getText())) {
+            }
+            else if (ADD_SPEND.equalsIgnoreCase(message.getText()))
+            {
                 response.setText("Отправьте мне сумму расходов");
-            } else {
+            }
+            else {
                 response.setText(financeService.addFinanceOperation(getPreviousCommand(message.getChatId()), message.getText(), message.getChatId()));
             }
 
